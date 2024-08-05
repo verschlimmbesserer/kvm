@@ -1,0 +1,11 @@
+---
+
+- name: Verify if virtualization is enabled
+  ansible.builtin.lineinfile:
+    path: /proc/cpuinfo
+    regex: '(vmx|svm)'
+    state: absent
+  changed_when: false
+  check_mode: true
+  register: result
+  failed_when: result.found <= 0
